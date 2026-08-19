@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Customer-facing phase-one feature catalogue for the Property & Retail AI Broker Assistant.">
+  <title>AI Broker Assistant — Phase One</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --paper: #f5f7f9;
+      --surface: #ffffff;
+      --line: #dfe4ea;
+      --navy: #17375e;
+      --blue: #2463a7;
+      --blue-soft: #edf4fb;
+      --teal: #176b68;
+      --teal-soft: #eaf5f3;
+      --amber: #9a6400;
+      --amber-soft: #fff5dc;
+      --radius: 15px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    button { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      color: #fff;
+      background: rgba(23, 55, 94, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 62px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 750;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 9px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .topbar a,
+    .print-button {
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 7px;
+      color: rgba(255, 255, 255, 0.84);
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .topbar a:hover,
+    .print-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero {
+      padding: 84px 0 76px;
+      color: #fff;
+      background: var(--navy);
+    }
+
+    .hero-inner,
+    main,
+    footer {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #bdd8f4;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(40px, 6vw, 70px);
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin: 23px 0 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .hero-outcomes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 920px;
+      margin-top: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-outcome {
+      min-height: 112px;
+      padding: 20px;
+      background: rgba(23, 55, 94, 0.92);
+    }
+
+    .hero-outcome strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+
+    .hero-outcome span {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 13px;
+    }
+
+    main { padding: 58px 0 86px; }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 60px;
+    }
+
+    .section-number {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .intro h2,
+    .section-heading h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .intro p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .control-note {
+      padding: 20px 22px;
+      border-left: 4px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: var(--surface);
+    }
+
+    .control-note strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--teal);
+    }
+
+    .control-note p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .catalog-section {
+      margin-top: 68px;
+      scroll-margin-top: 84px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
+      gap: 34px;
+      align-items: end;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .feature {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .feature-header {
+      display: grid;
+      grid-template-columns: 95px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 23px 24px 19px;
+      border-bottom: 1px solid #edf0f3;
+    }
+
+    .feature-code {
+      color: #98a2b3;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .feature h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-summary {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feature-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: start;
+      padding: 21px 24px 23px 139px;
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .feature ul {
+      margin: 0;
+      padding-left: 19px;
+      color: #475467;
+      font-size: 14px;
+    }
+
+    .feature li + li { margin-top: 5px; }
+
+    .output {
+      padding: 14px 15px;
+      border-left: 3px solid var(--blue);
+      background: var(--blue-soft);
+      color: #314b68;
+      font-size: 13px;
+    }
+
+    .output strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue);
+    }
+
+    .example-button {
+      margin-top: 13px;
+      padding: 8px 12px;
+      border: 1px solid var(--blue);
+      border-radius: 7px;
+      color: var(--blue);
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .example-button:hover {
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .screen-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .screen-row {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) minmax(250px, 0.8fr);
+      gap: 22px;
+      align-items: start;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .screen-name {
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .screen-features strong,
+    .screen-example strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .screen-features p,
+    .screen-example p {
+      margin: 0;
+      color: #475467;
+      font-size: 13px;
+    }
+
+    .screen-example {
+      padding-left: 15px;
+      border-left: 3px solid var(--teal);
+    }
+
+    .modal {
+      width: min(700px, calc(100% - 32px));
+      max-height: min(760px, calc(100vh - 40px));
+      margin: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 16px;
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: 0 24px 80px rgba(17, 31, 49, 0.28);
+    }
+
+    .modal::backdrop {
+      background: rgba(13, 27, 45, 0.62);
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-header span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 23px;
+      line-height: 1.2;
+    }
+
+    .modal-close {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--muted);
+      background: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .modal-intro {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .modal-example {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+
+    .modal-example + .modal-example { margin-top: 12px; }
+
+    .modal-example strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .modal-example p {
+      margin: 0;
+      color: #475467;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 27px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 840px) {
+      .topbar nav a { display: none; }
+      .hero-outcomes,
+      .intro,
+      .section-heading,
+      .feature-body,
+      .screen-row { grid-template-columns: 1fr; }
+      .feature-body { padding: 21px 24px 23px; }
+      .screen-example {
+        padding-top: 12px;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero { padding: 58px 0 52px; }
+      main { padding-top: 38px; }
+      .hero-outcomes { grid-template-columns: 1fr; }
+      .feature-header {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    @media print {
+      :root { --paper: #fff; }
+      .topbar, .example-button { display: none !important; }
+      .hero { padding: 36px 0; }
+      main { padding-top: 28px; }
+      .feature, .screen-row {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+      .catalog-section { margin-top: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">P&amp;R</span>
+        <span>Property &amp; Retail</span>
+      </div>
+      <nav aria-label="Page navigation">
+        <a href="#capture">Smart Capture</a>
+        <a href="#followups">Follow-ups</a>
+        <a href="#recap">Recap</a>
+        <a href="#workspace">Workspace</a>
+        <a href="#screens">Screens</a>
+        <button class="print-button" type="button" onclick="window.print()">Print / PDF</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">AI Broker Assistant · Phase One</p>
+      <h1>Capture faster. Follow up at the right moment.</h1>
+      <p class="hero-copy">
+        A focused set of Salesforce tools that helps brokers create reliable records,
+        understand recent Seeker activity, and turn past conversations into timely,
+        personalized follow-up.
+      </p>
+      <div class="hero-outcomes">
+        <div class="hero-outcome">
+          <strong>Reduce manual entry</strong>
+          <span>Create temporary, editable Property and Seeker drafts from Teasers and voice notes.</span>
+        </div>
+        <div class="hero-outcome">
+          <strong>Remember every commitment</strong>
+          <span>Surface agreed future contact, unanswered Teasers, and overdue follow-ups.</span>
+        </div>
+        <div class="hero-outcome">
+          <strong>Prepare better conversations</strong>
+          <span>Generate evidence-backed recaps, talking points, and message drafts.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="intro">
+      <div>
+        <span class="section-number">Phase-one objective</span>
+        <h2>A practical assistant for daily brokerage work</h2>
+        <p>
+          Each feature produces something practical: an editable draft, a Seeker recap,
+          a prioritized follow-up, or a reviewed email and WhatsApp message.
+        </p>
+      </div>
+      <aside class="control-note">
+        <strong>The broker remains in control</strong>
+        <p>
+          AI prepares and explains. The broker reviews new records, uncertain dates,
+          CRM changes, and every outbound message before it takes effect.
+        </p>
+      </aside>
+    </section>
+
+    <section class="catalog-section" id="capture">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">01 · Smart Capture</span>
+          <h2>Create reliable records with less typing</h2>
+        </div>
+        <p>
+          PDF and voice use the same safe workflow: provide the source, review the
+          extracted information, correct it if needed, then approve record creation.
+          One Smart Capture Page shows the full history, status, review, and conversion actions.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Capture 01</span>
+            <div>
+              <h3>PDF Teaser → Property Draft</h3>
+              <p class="feature-summary">Upload an incoming Teaser and receive a saved, editable draft before a Property exists.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">What the broker receives</span>
+              <ul>
+                <li>Address, Activity, areas, pricing, Key Money, and availability</li>
+                <li>Descriptions and contact information when available</li>
+                <li>Missing or uncertain values clearly marked</li>
+                <li>Possible duplicate Property warning</li>
+                <li>One review screen before creating the Property</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A saved Property draft the broker can reopen, correct, and approve
+                from the Smart Capture Page.
+              </div>
+              <button class="example-button" type="button" data-example="pdf-capture">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Capture 02</span>
+            <div>
+              <h3>Voice → Property or Seeker Draft</h3>
+              <p class="feature-summary">Record a voice note in Salesforce and turn it into a reviewed CRM draft.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Broker experience</span>
+              <ul>
+                <li>Mobile-priority recorder with desktop support</li>
+                <li>Record, stop, playback, re-record, and save</li>
+                <li>Automatic transcript linked to the voice note</li>
+                <li>Property or Seeker recognition</li>
+                <li>Editable extracted fields before record creation</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A transcript and editable Property or Seeker draft, reviewed and
+                approved from the Smart Capture Page.
+              </div>
+              <button class="example-button" type="button" data-example="voice-capture">See examples</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="catalog-section" id="followups">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">02 · Timely Follow-ups</span>
+          <h2>Know who needs attention and why</h2>
+        </div>
+        <p>
+          Follow-ups are based on observable events: an unanswered Teaser, an agreed
+          future contact date, or a relationship that has exceeded its contact cadence.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Follow-up 01</span>
+            <div>
+              <h3>Unanswered Teaser Follow-up</h3>
+              <p class="feature-summary">Prompt the broker when a Seeker has not answered a specific Teaser.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Follow-up rule</span>
+              <ul>
+                <li>Use the follow-up date recorded on the Teaser Log</li>
+                <li>If no date is set, follow up 14 days after sending</li>
+                <li>Close the action when a linked answer about the Property is received</li>
+                <li>Show six-month Teaser and response context</li>
+                <li>Prepare both email and WhatsApp drafts when available</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                One due action containing the Property, send date, response history,
+                and editable follow-up messages.
+              </div>
+              <button class="example-button" type="button" data-example="teaser-followup">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Follow-up 02</span>
+            <div>
+              <h3>Agreed Future Contact</h3>
+              <p class="feature-summary">Remember when the broker and Seeker agreed to speak again.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">How it works</span>
+              <ul>
+                <li>Detect “call me in three months” and similar commitments</li>
+                <li>Schedule clear dates automatically</li>
+                <li>Propose an editable date when timing is vague</li>
+                <li>Link every reminder to the source conversation</li>
+                <li>Place the action in the responsible broker’s queue when due</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A scheduled follow-up containing the agreed timing, reason, source,
+                and suggested message.
+              </div>
+              <button class="example-button" type="button" data-example="future-contact">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Follow-up 03</span>
+            <div>
+              <h3>Relationship Priority &amp; Contact Cadence</h3>
+              <p class="feature-summary">Let brokers decide how frequently each important Seeker should be contacted.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Broker-controlled cadence</span>
+              <ul>
+                <li>High priority: remind after two months without two-way contact</li>
+                <li>Medium priority: remind after six months</li>
+                <li>Low priority: remind after twelve months</li>
+                <li>No inactivity reminder when no two-way contact has ever occurred</li>
+                <li>An explicit future-contact date takes priority over cadence</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A relationship-maintenance action with the last two-way conversation,
+                recent outreach, and suggested reason to reconnect.
+              </div>
+              <button class="example-button" type="button" data-example="priority-cadence">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Follow-up 04</span>
+            <div>
+              <h3>Evidence-backed Follow-up Ideas</h3>
+              <p class="feature-summary">Suggest relevant reasons to contact the Seeker based on prior conversations.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Ideas can include</span>
+              <ul>
+                <li>Check whether a previously discussed transaction was completed</li>
+                <li>Confirm whether an older search remains active</li>
+                <li>Revisit an unresolved question or commitment</li>
+                <li>Discuss a Property or location already mentioned in the history</li>
+                <li>Ask for updated criteria when previous information may be stale</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                Suggested talking points and editable messages, each linked to the
+                communication that supports it.
+              </div>
+              <button class="example-button" type="button" data-example="followup-ideas">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Follow-up 05</span>
+            <div>
+              <h3>Follow-up Email &amp; WhatsApp Drafts</h3>
+              <p class="feature-summary">Generate send-ready messages directly from each follow-up reminder.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Draft behavior</span>
+              <ul>
+                <li>Generate drafts directly from the follow-up reason and recent history</li>
+                <li>Use the language spoken in recent conversations</li>
+                <li>Prepare email and WhatsApp when both channels are available</li>
+                <li>Let the broker choose the shared sending number or email account</li>
+                <li>Require broker review and approval before sending</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                Every follow-up reminder can produce two editable, channel-appropriate
+                drafts ready for broker approval and sending.
+              </div>
+              <button class="example-button" type="button" data-example="message-drafts">See examples</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </section>
+
+    <section class="catalog-section" id="recap">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">03 · Seeker Recap</span>
+          <h2>Prepare for the next conversation</h2>
+        </div>
+        <p>
+          The recap turns authorized communication, Teaser history, notes, meetings,
+          and commitments into a concise preparation document.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Recap 01</span>
+            <div>
+              <h3>On-demand Seeker Recap</h3>
+              <p class="feature-summary">Generate a pre-meeting summary covering the last six or twelve months.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Recap content</span>
+              <ul>
+                <li>Current search and previously discussed locations</li>
+                <li>One shared history from all three WhatsApp numbers and both email accounts</li>
+                <li>Important meetings, calls, Tasks, and notes</li>
+                <li>Unique Properties presented and linked responses</li>
+                <li>Open commitments, questions, and unresolved outcomes</li>
+                <li>Suggested talking points linked to the relevant conversation</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A six- or twelve-month briefing with direct links to the original
+                conversations and CRM records.
+              </div>
+              <button class="example-button" type="button" data-example="seeker-recap">See examples</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="catalog-section" id="workspace">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">04 · Shared Workspaces</span>
+          <h2>One general workspace, plus complete Seeker context</h2>
+        </div>
+        <p>
+          The Brokerage Intelligence Workspace contains the team’s Follow-up Queue.
+          The same follow-ups also appear inside each Seeker Intelligence Workspace.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Workspace 01</span>
+            <div>
+              <h3>Brokerage Intelligence Workspace</h3>
+              <p class="feature-summary">The shared team workspace for follow-ups and sent digest history.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">General workspace</span>
+              <ul>
+                <li>Today’s consolidated Seeker follow-up actions</li>
+                <li>One morning email digest per broker, defaulting to 08:00</li>
+                <li>History and delivery status of previously sent daily digests</li>
+                <li>Open, generate messages, complete, dismiss, or snooze</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                One shared workspace showing who needs attention, why, and what the
+                broker can do next.
+              </div>
+              <button class="example-button" type="button" data-example="daily-queue">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Workspace 02</span>
+            <div>
+              <h3>Seeker Intelligence Workspace</h3>
+              <p class="feature-summary">A dedicated section inside each Seeker record page answering what happened, what is due, and what to do next.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Workspace content</span>
+              <ul>
+                <li>Relationship priority and contact dates</li>
+                <li>One timeline from all three WhatsApp numbers and both email accounts</li>
+                <li>The source number or email account shown for every message</li>
+                <li>Teasers, meetings, calls, notes, commitments, and open follow-ups</li>
+                <li>Six- or twelve-month recap generator</li>
+                <li>Message review and sending controls</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                One Seeker page combining relationship context, pending work,
+                communication history, recap, and message actions.
+              </div>
+              <button class="example-button" type="button" data-example="seeker-workspace">See examples</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="screens">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">05 · New screens recap</span>
+          <h2>Where each feature appears</h2>
+        </div>
+        <p>
+          Phase one adds a small set of connected screens rather than placing every
+          feature on one page.
+        </p>
+      </div>
+
+      <div class="screen-list">
+        <article class="screen-row">
+          <div class="screen-name">Brokerage Intelligence Workspace</div>
+          <div class="screen-features">
+            <strong>Contains</strong>
+            <p>Follow-up Queue and history and delivery status for Daily Email Digests.</p>
+          </div>
+          <div class="screen-example">
+            <strong>Concrete example</strong>
+            <p>“Eight follow-ups are due, and today’s email digest was delivered at 08:02.”</p>
+          </div>
+        </article>
+
+        <article class="screen-row">
+          <div class="screen-name">Follow-up Details</div>
+          <div class="screen-features">
+            <strong>Contains</strong>
+            <p>Opens from the Follow-up Queue or Seeker Intelligence Workspace. Shows why follow-up is due, relevant history, email and WhatsApp drafts, and available actions.</p>
+          </div>
+          <div class="screen-example">
+            <strong>Concrete example</strong>
+            <p>An unanswered Teaser and overdue commitment appear together, producing one coordinated email and WhatsApp message.</p>
+          </div>
+        </article>
+
+        <article class="screen-row">
+          <div class="screen-name">Seeker Intelligence Workspace</div>
+          <div class="screen-features">
+            <strong>Contains</strong>
+            <p>Priority, contact dates, all three WhatsApp and both email histories, Teasers, commitments, recap generator, and current Follow-up Action.</p>
+          </div>
+          <div class="screen-example">
+            <strong>Concrete example</strong>
+            <p>Before a meeting, the broker generates a twelve-month recap, checks unresolved topics, and opens the due follow-up.</p>
+          </div>
+        </article>
+
+        <article class="screen-row">
+          <div class="screen-name">Smart Capture Page</div>
+          <div class="screen-features">
+            <strong>Contains</strong>
+            <p>One page for starting PDF or voice capture, reviewing draft history and status, correcting information, retrying failures, and creating a Property or Seeker.</p>
+          </div>
+          <div class="screen-example">
+            <strong>Concrete example</strong>
+            <p>A failed transcription is retried; another draft is corrected and approved as a Seeker without leaving the page.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="example-modal" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <div>
+        <span>Customer scenario</span>
+        <h3 id="modal-title"></h3>
+      </div>
+      <button class="modal-close" type="button" aria-label="Close examples">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </dialog>
+
+  <footer>
+    Property &amp; Retail CRM · AI Broker Assistant · Phase-one customer feature catalogue
+  </footer>
+
+  <script>
+    (() => {
+      const modal = document.getElementById('example-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalBody = document.getElementById('modal-body');
+      const closeButton = modal.querySelector('.modal-close');
+
+      const examples = {
+        'pdf-capture': {
+          title: 'PDF Teaser → Property Draft',
+          intro: 'Example result from an uploaded Teaser:',
+          items: [
+            ['Extracted Property', '12 Rue Rivoli · Rent · Retail Area 145 sqm · Annual Rent €180,000 · available January.'],
+            ['Needs confirmation', 'The Teaser also contains a monthly rent figure. Annual Rent is highlighted so the broker can confirm the correct value.'],
+            ['Before creation', 'Storage Area was not found, and a Property with the same address may already exist. The broker reviews both before approving.']
+          ]
+        },
+        'voice-capture': {
+          title: 'Voice → Property or Seeker Draft',
+          intro: 'Example voice notes and the information prepared for review:',
+          items: [
+            ['Seeker voice note', '“Restaurant looking in Paris 2nd and 3rd, 100–150 sqm, maximum Annual Rent €90,000.” The locations, area range, Activity, and budget are prepared as editable fields.'],
+            ['Property voice note', '“New corner unit on Rue de Turenne, 130 sqm Retail Area, €165,000 Annual Rent, available in January.” The address, area, rent, and availability are prepared for review.'],
+            ['Broker confirmation', 'If the recording mentions both 130 and 150 sqm, both values are shown and the broker chooses the correct one before creation.']
+          ]
+        },
+        'teaser-followup': {
+          title: 'Unanswered Teaser Follow-up',
+          intro: 'Example follow-up action:',
+          items: [
+            ['Why now', 'Teaser for 12 Rue Rivoli was sent on 1 August. No linked answer was found, and its 15 August follow-up date has arrived.'],
+            ['Six-month context', 'Five unique Properties were presented during the last six months; the Seeker answered three.'],
+            ['Suggested message', '“Bonjour Claire, avez-vous eu l’occasion de regarder le local rue de Rivoli ? Je peux vous envoyer les conditions actualisées ou organiser une visite.”']
+          ]
+        },
+        'future-contact': {
+          title: 'Agreed Future Contact',
+          intro: 'Examples of clear and vague commitments:',
+          items: [
+            ['Clear commitment', 'On 18 August the Seeker says, “Let’s speak again in three months.” The follow-up is scheduled for 18 November.'],
+            ['Vague timing', 'The Seeker says, “Contact me in spring.” A suggested spring date is prepared for the broker to confirm or change.'],
+            ['Conversation link', 'The follow-up links to the email, WhatsApp exchange, meeting note, or call where the timing was agreed.']
+          ]
+        },
+        'priority-cadence': {
+          title: 'Relationship Priority & Contact Cadence',
+          intro: 'Example relationship-maintenance decisions:',
+          items: [
+            ['High priority', 'Last two-way contact was 74 days ago. No explicit future date exists, so reconnection is due.'],
+            ['Medium priority', 'Last two-way contact was five months ago. The Seeker is not due until the six-month threshold.'],
+            ['No previous relationship', 'Several messages were sent but the Seeker never replied. No inactivity reminder is created.']
+          ]
+        },
+        'seeker-recap': {
+          title: 'On-demand Seeker Recap',
+          intro: 'Example 12-month pre-meeting summary:',
+          items: [
+            ['Current search', 'Paris 1st, 3rd, and 4th · 120–180 sqm · Annual Rent up to €220,000 · corner frontage preferred.'],
+            ['Last 12 months', 'Five unique Properties were presented. Three received answers, one was rejected for insufficient Storage Area, and one remains unanswered.'],
+            ['Suggested discussion', 'Confirm whether the Lyon transaction closed, whether the Paris 3rd search remains active, and whether revised terms are still required.']
+          ]
+        },
+        'followup-ideas': {
+          title: 'Evidence-backed Follow-up Ideas',
+          intro: 'Examples generated from previous conversations:',
+          items: [
+            ['Unresolved outcome', '“In May, the Seeker expected to close a transaction in Lyon. Ask whether it completed.”'],
+            ['Search confirmation', '“The Seeker discussed opening in Paris 3rd six months ago. Confirm whether the search remains active.”'],
+            ['Open question', '“The Seeker asked about delivery access for 24 Rue des Archives, and no answer was recorded.”']
+          ]
+        },
+        'message-drafts': {
+          title: 'Follow-up Email & WhatsApp Drafts',
+          intro: 'Example drafts generated for an unanswered Teaser:',
+          items: [
+            ['Follow-up context', 'The Teaser for 12 Rue Rivoli was sent on 1 August, no answer was found, and revised terms are now available.'],
+            ['WhatsApp draft in French', '“Bonjour Claire, avez-vous eu l’occasion de regarder le local rue de Rivoli ? Les conditions ont été actualisées. Souhaitez-vous que je vous les envoie ?”'],
+            ['Email draft in French', 'Objet : Suivi – 12 rue de Rivoli. Bonjour Claire, je reviens vers vous concernant le local envoyé le 1er août. Les conditions ont été actualisées ; souhaitez-vous les recevoir ou organiser une visite ?'],
+            ['Broker action', 'The broker can edit either draft, choose the shared sending account, and approve it before sending.']
+          ]
+        },
+        'daily-queue': {
+          title: 'Brokerage Intelligence Workspace',
+          intro: 'Examples from the shared operational workspace:',
+          items: [
+            ['Today’s queue', 'Eight Seekers need attention: three unanswered Teasers, two agreed future contacts, and three relationship-cadence reminders.'],
+            ['One action per Seeker', 'A Seeker with both an unanswered Teaser and an overdue commitment appears once, with both reasons shown together.'],
+            ['Sent digest history', 'Today’s Daily Email Digest was delivered at 08:02 and contained links to all eight follow-ups.']
+          ]
+        },
+        'seeker-workspace': {
+          title: 'Seeker Intelligence Workspace',
+          intro: 'Example information visible on one Salesforce page:',
+          items: [
+            ['Relationship overview', 'High priority · last conversation 74 days ago · follow-up due · next agreed contact not set.'],
+            ['Shared timeline', 'The broker sees relevant messages from all three WhatsApp numbers and both email accounts in one timeline, with the source shown.'],
+            ['Available actions', 'Generate a 12-month recap, review the due follow-up, edit email and WhatsApp drafts, send, complete, snooze, or dismiss.']
+          ]
+        }
+      };
+
+      document.querySelectorAll('.example-button').forEach((button) => {
+        button.addEventListener('click', () => {
+          const example = examples[button.dataset.example];
+          if (!example) return;
+
+          modalTitle.textContent = example.title;
+          modalBody.replaceChildren();
+
+          const intro = document.createElement('p');
+          intro.className = 'modal-intro';
+          intro.textContent = example.intro;
+          modalBody.appendChild(intro);
+
+          example.items.forEach(([heading, description]) => {
+            const item = document.createElement('div');
+            item.className = 'modal-example';
+
+            const title = document.createElement('strong');
+            title.textContent = heading;
+
+            const copy = document.createElement('p');
+            copy.textContent = description;
+
+            item.append(title, copy);
+            modalBody.appendChild(item);
+          });
+
+          modal.showModal();
+        });
+      });
+
+      closeButton.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) modal.close();
+      });
+    })();
+  </script>
+</body>
+</html>

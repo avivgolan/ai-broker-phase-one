@@ -533,6 +533,7 @@
         <a href="#followups">Follow-ups</a>
         <a href="#recap">Recap</a>
         <a href="#workspace">Workspace</a>
+        <a href="#claude">Claude MCP</a>
         <a href="#screens">Screens</a>
         <button class="print-button" type="button" onclick="window.print()">Print / PDF</button>
       </nav>
@@ -949,10 +950,116 @@
       </div>
     </section>
 
+    <section class="catalog-section" id="claude">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">05 · Claude Conversational Access</span>
+          <h2>Use the same intelligence through natural conversation</h2>
+        </div>
+        <p>
+          A secure MCP connection gives brokers an additional conversational way to use
+          approved Salesforce and n8n capabilities. Salesforce remains the system of
+          record, while n8n continues to manage communication and automation workflows.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Conversation 01</span>
+            <div>
+              <h3>Claude CRM Conversation Layer</h3>
+              <p class="feature-summary">Ask business questions in everyday language and receive answers from current CRM and communication data.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Brokers can ask</span>
+              <ul>
+                <li>Find a Seeker or Property without navigating several screens</li>
+                <li>Summarize recent email, WhatsApp, Teaser, meeting, and note activity</li>
+                <li>Show current commitments and due follow-ups</li>
+                <li>Explain answers with dates and links to the supporting records</li>
+                <li>Use each broker’s authorized Salesforce access</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                A sourced conversational answer based on current Salesforce and shared
+                communication information, without creating a separate CRM.
+              </div>
+              <button class="example-button" type="button" data-example="claude-crm">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Conversation 02</span>
+            <div>
+              <h3>Conversational Teaser → Property Draft</h3>
+              <p class="feature-summary">Ask Claude to start Smart Capture from a Teaser and guide the broker through the review.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Conversation flow</span>
+              <ul>
+                <li>Provide a Teaser through an approved secure file connection</li>
+                <li>Start the existing n8n extraction workflow from Claude</li>
+                <li>Return extracted Property fields, uncertainties, and duplicate warnings</li>
+                <li>Let the broker correct information conversationally</li>
+                <li>Create the Salesforce Property only after explicit approval</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                The same saved Smart Capture draft and Salesforce review controls,
+                initiated and explained through a Claude conversation.
+              </div>
+              <button class="example-button" type="button" data-example="claude-teaser">See examples</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-header">
+            <span class="feature-code">Conversation 03</span>
+            <div>
+              <h3>Conversational Recaps &amp; Follow-up Drafts</h3>
+              <p class="feature-summary">Request meeting preparation, follow-up reasoning, and channel-ready drafts directly in Claude.</p>
+            </div>
+          </div>
+          <div class="feature-body">
+            <div>
+              <span class="detail-label">Available requests</span>
+              <ul>
+                <li>“Prepare me for my meeting with this Seeker”</li>
+                <li>“Who requires attention today, and why?”</li>
+                <li>“What did we agree to discuss again?”</li>
+                <li>“Draft a French WhatsApp and email for this follow-up”</li>
+                <li>Require broker confirmation before any message is sent or CRM data changes</li>
+              </ul>
+            </div>
+            <div>
+              <div class="output">
+                <strong>Concrete output</strong>
+                Evidence-backed recaps, explanations, and editable messages using the
+                same rules and data available in the Salesforce workspaces.
+              </div>
+              <button class="example-button" type="button" data-example="claude-followup">See examples</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="catalog-section" id="screens">
       <div class="section-heading">
         <div>
-          <span class="section-number">05 · New screens recap</span>
+          <span class="section-number">06 · Screens &amp; access points recap</span>
           <h2>Where each feature appears</h2>
         </div>
         <p>
@@ -1007,6 +1114,18 @@
           <div class="screen-example">
             <strong>Concrete example</strong>
             <p>A failed transcription is retried; another draft is corrected and approved as a Seeker without leaving the page.</p>
+          </div>
+        </article>
+
+        <article class="screen-row">
+          <div class="screen-name">Claude Conversation</div>
+          <div class="screen-features">
+            <strong>Contains</strong>
+            <p>An additional conversational access point for CRM questions, Seeker recaps, follow-up explanations, message drafts, and Teaser capture.</p>
+          </div>
+          <div class="screen-example">
+            <strong>Concrete example</strong>
+            <p>The broker asks Claude to prepare for a meeting, reviews source-backed talking points, and requests a French WhatsApp draft.</p>
           </div>
         </article>
 
@@ -1126,6 +1245,33 @@
             ['Relationship overview', 'High priority · last conversation 74 days ago · follow-up due · next agreed contact not set.'],
             ['Shared timeline', 'The broker sees relevant messages from all three WhatsApp numbers and both email accounts in one timeline, with the source shown.'],
             ['Available actions', 'Generate a 12-month recap, review the due follow-up, edit email and WhatsApp drafts, send, complete, snooze, or dismiss.']
+          ]
+        },
+        'claude-crm': {
+          title: 'Claude CRM Conversation Layer',
+          intro: 'Examples of questions answered from authorized CRM and communication data:',
+          items: [
+            ['Relationship question', '“When did we last speak with Claire, and what did we agree?” Claude returns the date, commitment, and links to the supporting messages.'],
+            ['Property question', '“Which Paris 3rd Properties did we already send her?” Claude lists the unique Properties, send dates, and recorded responses.'],
+            ['Daily question', '“Who requires attention today?” Claude returns due Seekers grouped by follow-up reason, without changing any records.']
+          ]
+        },
+        'claude-teaser': {
+          title: 'Conversational Teaser → Property Draft',
+          intro: 'Example Smart Capture workflow initiated through Claude:',
+          items: [
+            ['Broker request', '“Create a Property draft from this Teaser.” Claude starts the approved extraction workflow using the securely connected file.'],
+            ['Review response', 'Claude reports 145 sqm, Annual Rent €180,000, January availability, missing Storage Area, and a possible address duplicate.'],
+            ['Controlled creation', 'The broker corrects the availability date and explicitly approves creation. The saved draft is then converted into the Salesforce Property.']
+          ]
+        },
+        'claude-followup': {
+          title: 'Conversational Recaps & Follow-up Drafts',
+          intro: 'Example meeting-preparation and message request:',
+          items: [
+            ['Broker request', '“Prepare me for tomorrow’s meeting with Claire and focus on unresolved opportunities.”'],
+            ['Claude response', 'Claude summarizes the previous search, unanswered Teaser, Lyon transaction question, and agreed future-contact commitment with source links.'],
+            ['Draft request', 'The broker asks for a French WhatsApp. Claude prepares an editable draft, but does not send it without explicit approval.']
           ]
         }
       };
